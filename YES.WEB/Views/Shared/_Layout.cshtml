@@ -3,11 +3,27 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - YES.WEB</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/YES.WEB.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - Yes Computer Center</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- Template styles-->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- Responsive styles-->
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <!-- Animation -->
+    <link rel="stylesheet" href="~/css/animate.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <!-- Colorbox -->
+    <link rel="stylesheet" href="~/css/colorbox.css">
+    <!--Toastr -->
+    <link href="~/toastr/toastr.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="body-inner">
@@ -261,8 +277,7 @@
         <!-- Copyright end -->
 
     </footer>
-
-    @*   <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
     <script src="~/js/jquery.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
@@ -284,8 +299,7 @@
     <!-- Template custom -->
     <script type="text/javascript" src="~/js/custom.js"></script>
     <script type="text/javascript" src="~/Feature/Comman/Comman.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
