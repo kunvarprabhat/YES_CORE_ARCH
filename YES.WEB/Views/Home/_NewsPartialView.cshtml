@@ -1,0 +1,30 @@
+﻿@using YES.Dtos.News;
+@model IEnumerable<NewsDto>
+
+
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="col-lg-12">
+
+            <a href="latest-news.aspx">
+                <img src="~/images/yescc.png" class="pull-left" alt="" height="50px;" width="150px">
+            </a>
+            <h3 style="margin: 0px"><a href="~/latest-news"> @item.Title.ToUpper()</a> </h3>
+            <p class="fa fa-calendar">&nbsp;&nbsp; @item.CreatedDate.ToString("dd-MM-yyyy hh:mm tt")</p>
+            <br>
+            <div class="clearfix"></div>
+            <hr>
+        </div>
+    }
+
+
+}
+else
+{
+    <div class="col-lg-12">
+        <strong>Record not available</strong>
+    </div>
+}
+

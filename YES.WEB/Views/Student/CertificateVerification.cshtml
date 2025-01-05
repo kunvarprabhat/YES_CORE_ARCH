@@ -1,0 +1,71 @@
+﻿@using YES.Dtos.Student
+@model StudentDto
+@{
+    ViewData["Title"] = "CertificateVerification";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-lg-12">
+    <div id="banner-area" class="banner-area" style="background-image: url(images/banner/banner1.jpg)">
+        <div class="banner-text">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="banner-heading">
+                            <h1 class="border-title border-left">Certificate Verification</h1>
+                            <ol class="breadcrumb">
+                                <li><a href="/">Home</a> </li>
+                                <li>Certificate Verificatio</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <!-- Col end -->
+                </div>
+                <!-- Row end -->
+            </div>
+            <!-- Container end -->
+        </div>
+        <!-- Banner text end -->
+    </div>
+    <!-- Banner area end -->
+    <section id="Section2" class="main-container">
+        <div class="container">
+            @if (Model.ExamResultDtos == null)
+            {
+                <div class="row">
+                    <div class="col-lg-3" style="font-size: 30px; padding-top: 10px; font-weight: bold; text-transform: uppercase;">
+                        <label>Enter Student Id :</label>
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" id="studentId" class="form-control" placeholder="Enter Students Id" autocomplete="off" style="text-transform: uppercase;" />
+
+                    </div>
+                    <div class="col-lg-6">
+                        <button type="button" class="btn btn-success" id="btnSearch" onclick="certificateVerify()">SUBMIT</button>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-info" onclick="printContent('printarea');" id="button" runat="server" visible="false">
+                                <span class="fa fa-print">&nbsp; PRINT</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <hr />
+
+                    </div>
+                </div>
+            }
+            <div class="row" id="Result">
+                @if (Model != null && Model.ExamResultDtos != null)
+                {
+                    @await Html.PartialAsync("~/Views/Certificate/_CertificatePartialView.cshtml",Model)
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+@section Scripts{
+    <script type="text/javascript" src="~/Feature/GenrateResult/Certificate.js"></script>
+}

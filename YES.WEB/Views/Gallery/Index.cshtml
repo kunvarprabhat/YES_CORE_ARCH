@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="inter-box">
+                <div class="box collapsed-box">
+                    <div class="box-header">
+                        <h3 class="breadcrumb box-title">Add Slider images</h3>
+                        <ol class="breadcrumb pull-right">
+                            <li><a href="~/Dashboard/Index"><i class="fa fa-dashboard"></i>&nbsp;Dashboard</a></li>
+                            <li class="active">Add Slider</li>
+                        </ol>
+                    </div>
+                    <div class="card-header pull-right box-tools" style="margin:5px;float:left">
+                        <a class="btn btn-success" id="addBatch" style="font-size: 15px;" data-widget="collapse"><i class="fa fa-plus"></i>&nbsp;Add Image</a>
+                    </div>
+                    <hr />
+                    <div class="box-body" style="display:none">
+                        <div class="row" id="createBatch">
+                            @await Html.PartialAsync("_AddImage")
+                        </div>
+                        <!-- /.row -->
+                    </div>
+
+                </div>
+                <!-- /.box -->
+
+                <div class="box-body">
+
+                    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="tblImagesList" class="table table-bordered table-striped dataTable table-responsive" role="grid" aria-describedby="example1_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th>Sr.No</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Image Name</th>
+                                            <th>Image view</th>
+                                            <th>Created On</th>
+                                            <th>Tools</th>
+                                        </tr>
+                                    </thead>
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+@section Scripts{
+    <script type="text/javascript" src="~/Feature/Images/Slider.js"></script>
+}

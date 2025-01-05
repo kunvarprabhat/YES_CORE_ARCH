@@ -1,0 +1,59 @@
+﻿@using YES.Dtos.Result
+@model ExamResultDto
+
+<div class="form-group">
+    <label for="inputEmail" class="col-sm-3 control-label">Exam Name</label>
+    <div class="col-sm-9">
+
+        <input type="hidden" id="examModulesCount" value="@((ViewBag.examModules != null) ? ViewBag.examModules.Count : 0)" />
+        <select class="form-control" id="examDropdown" asp-for="ExamId">
+            <option value="">Select Category</option>
+            @foreach (var examModule in ViewBag.examModules)
+            {
+                if (Model?.ExamId != null)
+                {
+                    <option value="@examModule.Id" data-modules="@examModule.Modules" selected> @examModule.ExamName </option>
+                }
+                else
+                {
+                    <option value="@examModule.Id" data-modules="@examModule.Modules"> @examModule.ExamName </option>
+                }
+
+
+            }
+        </select>
+        @*
+        @Html.DropDownListFor(m => m.ExamId,new SelectList(ViewBag.examModules,"Id", "ExamName",dataTextField=),"Select Category",new{@class="form-control", id = "examDropdown" }) *@
+        <span asp-validation-for="ExamId" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="Tearm" class="col-sm-3 control-label"></label>
+
+    <div class="col-sm-9">
+        <input type="text" asp-for="Tearm" class="form-control" placeholder="Name" autocomplete="off" readonly>
+        <span asp-validation-for="TotalMarks" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="ObtainMark" class="col-sm-3 control-label"> </label>
+
+    <div class="col-sm-9">
+        <input type="text" class="form-control" asp-for="ObtainMark" placeholder="Obtain Mark" autocomplete="off">
+        <span asp-validation-for="ObtainMark" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="TotalMarks" class="col-sm-3 control-label"></label>
+
+    <div class="col-sm-9">
+        <input type="text" class="form-control" asp-for="TotalMarks" value="100" placeholder="Total Marks" autocomplete="off" readonly>
+        <span asp-validation-for="TotalMarks" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+        <button type="button" class="btn btn-success" id="submit">Submit</button>
+    </div>
+</div>

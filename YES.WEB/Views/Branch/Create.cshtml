@@ -1,0 +1,198 @@
+﻿@using YES.Dtos.Branch;
+@model BranchDto
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="breadcrumb box-title">Create Branch</h3>
+                    <ol class="breadcrumb pull-right">
+                        <li><a href="~/Dashboard/Index"><i class="fa fa-dashboard"></i>&nbsp;Dashboard</a></li>
+                        <li><a href="~/Branch/Index"><i class="fa fa-List"></i>&nbsp;Branch List</a></li>
+                        <li class="active">Branch List</li>
+                    </ol>
+                </div>
+                <hr />
+
+                <div class="box-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="branchForm" enctype="multipart/form-data">
+                                <div class="row">
+                                    <input type="hidden" asp-for="Id" />
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(x=>x.CenterId)
+                                                    <input asp-for="CenterId" maxlength="60" placeholder="Please enter Center Id" class="form-control" readonly="true" />
+                                                    <span asp-validation-for="CenterId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(x=>x.CenterName)
+                                                    <input asp-for="CenterName" maxlength="60" placeholder="Please enter Center Name" class="form-control" />
+                                                    <span asp-validation-for="CenterName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(x=>x.Name)
+                                                    <input asp-for="Name" maxlength="60" placeholder="Please enter your Name" class="form-control" />
+                                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(x=>x.LastName)
+                                                    <input asp-for="LastName" maxlength="60" placeholder="Please enter your Name" class="form-control" />
+                                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(x=>x.EmailId)
+                                                    <input asp-for="EmailId" maxlength="60" placeholder="Please enter email id" class="form-control" />
+                                                    <span asp-validation-for="EmailId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(x=>x.PhoneNo)
+                                                    <input asp-for="PhoneNo" maxlength="10" placeholder="Please enter your phone number" class="form-control" />
+                                                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(x=>x.Qualification)
+                                                    <input asp-for="Qualification" maxlength="60" placeholder="Please enter your Name" class="form-control" />
+                                                    <span asp-validation-for="Qualification" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="ddlStateAddress">State</label>
+                                                    <select id="ddlStateAddress" name="State" asp-for="State" class="form-control">
+                                                        <option value="0">--Select--</option>
+                                                        <option value="01">ANDAMAN AND NICOBAR ISLANDS</option>
+                                                        <option value="02">ANDHRA PRADESH</option>
+                                                        <option value="03">ARUNACHAL PRADESH</option>
+                                                        <option value="04">ASSAM</option>
+                                                        <option value="05">BIHAR</option>
+                                                        <option value="06">CHANDIGARH</option>
+                                                        <option value="07">CHHATTISGARH</option>
+                                                        <option value="08">DADRA AND NAGAR HAVELI</option>
+                                                        <option value="09">DAMAN AND DIU</option>
+                                                        <option value="10">DELHI</option>
+                                                        <option value="11">GOA</option>
+                                                        <option value="12">GUJARAT</option>
+                                                        <option value="13">HARYANA</option>
+                                                        <option value="14">HIMACHAL PRADESH</option>
+                                                        <option value="15">JAMMU AND KASHMIR</option>
+                                                        <option value="16">JHARKHAND</option>
+                                                        <option value="17">KARNATAKA</option>
+                                                        <option value="18">KERALA</option>
+                                                        <option value="37">LADAKH</option>
+                                                        <option value="19">LAKSHADWEEP</option>
+                                                        <option value="20">MADHYA PRADESH</option>
+                                                        <option value="21">MAHARASTRA</option>
+                                                        <option value="22">MANIPUR</option>
+                                                        <option value="23">MEGHALAYA</option>
+                                                        <option value="24">MIZORAM</option>
+                                                        <option value="25">NAGALAND</option>
+                                                        <option value="26">ODISHA</option>
+                                                        <option value="27">PUDUCHERRY</option>
+                                                        <option value="28">PUNJAB</option>
+                                                        <option value="29">RAJASTHAN</option>
+                                                        <option value="30">SIKKIM</option>
+                                                        <option value="31">TAMIL NADU</option>
+                                                        <option value="36">TELANGANA</option>
+                                                        <option value="32">TRIPURA</option>
+                                                        <option value="33">UTTAR PRADESH</option>
+                                                        <option value="34">UTTARAKHAND</option>
+                                                        <option value="35">WEST BENGAL</option>
+                                                    </select>
+                                                    <span asp-validation-for="State" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(x=>x.City)
+                                                    <input asp-for="City" maxlength="60" placeholder="Please enter city name" class="form-control" />
+                                                    <span asp-validation-for="City" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(x=>x.Address)
+                                                    <textarea asp-for="Address" rows="5" placeholder="Please enter center address" class="form-control"></textarea>
+                                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-success pull-right" id="btnSubmit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <input type="hidden" asp-for="Profile" />
+                                                    <label>Upload Image</label>
+                                                    <input type="file" class="form-control" name="FileToUpload" onchange="readURL(this,'profileScr');" accept=".png, .jpg, .jpeg" />
+                                                </div>
+                                                <div id="user-profile-view" style="height: 100px; width: 110px; border: 1px solid;" class="img-thumbnail mr-2">
+                                                    <img src="@Model.Profile?.Replace("wwwroot","")" id="profileScr" height="100%" width="100%" /><br />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <input type="hidden" asp-for="Signature" />
+                                                    <label>Upload Signature</label>
+                                                    <input type="file" class="form-control" name="FileSignature" onchange="readURL(this,'signatureSrc');" id="user-profile" accept=".png, .jpg, .jpeg" />
+                                                </div>
+
+                                                <div id="user-profile-signature-view" style="height: 50px; width: 140px; border: 1px solid;margin-top:20px" class="img-thumbnail">
+                                                    <img src="@Model.Signature?.Replace("wwwroot","")" id="signatureSrc" height="100%" width="100%" /><br />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+    <script type="text/javascript" src="~/Feature/Branch/Create-Branch.js"></script>
+    <script src="~/Feature/Comman/SubmitData.js"></script>
+}

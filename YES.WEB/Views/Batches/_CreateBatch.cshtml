@@ -1,0 +1,36 @@
+﻿@using YES.Dtos.Batches;
+@model BatchDto
+
+<form id="batchForm">
+    <div class="col-lg-4">
+        <div class="form-group">
+            @Html.LabelFor(x=>x.CourseId)
+            @Html.DropDownListFor(x=>x.CourseId,new SelectList(Model.Courses, "CourseId", "CourseShortName"),"Select Course",new{@class="form-control"})
+            <span asp-validation-for="CourseId" class="text-danger"></span>
+        </div>
+    </div>
+    <!-- /.col -->
+    <div class="col-lg-4">
+        <div class="form-group">
+            @Html.LabelFor(x=>x.Size)
+            <input asp-for="Size" maxlength="3" placeholder="Please enter number of student allow" class="form-control" />
+            <span asp-validation-for="Size" class="text-danger"></span>
+
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="form-group">
+            @Html.LabelFor(x=>x.UpcomingBatch)
+            <input asp-for="UpcomingBatch" placeholder="Please select upcoming batch date" class="form-control" />
+            <span asp-validation-for="Size" class="text-danger"></span>
+
+        </div>
+    </div>
+    <!-- /.col -->
+    <div class="form-group">
+        <div class="pull-right" style="margin:5px;float:left">
+            <button class="btn btn-success" id="btnSubmit">Submit</button>
+        </div>
+    </div>
+</form>

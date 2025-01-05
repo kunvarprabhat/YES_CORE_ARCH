@@ -1,0 +1,17 @@
+﻿@using YES.Dtos.Account;
+@model ForgotPasswordDto
+<div class="form-group">
+    <div class="col-md-12">
+        <input type="text" class="form-control" placeholder="Email id" asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-md-12">
+        <button class="x-btn btn-pink btn-block btn-raised" id="btnForgot"><span id="Load"> Forgot Password</span></button>
+        <button type="reset" class="x-btn btn-secondary btn-block btn-raised" onclick="Login.backToLoginPage()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to login page</button>
+
+    </div>
+</div>

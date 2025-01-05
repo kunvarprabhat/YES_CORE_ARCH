@@ -1,0 +1,351 @@
+﻿@using YES.Dtos.Student;
+@using YES.Utility.Common;
+@model StudentDto;
+
+@{
+    ViewData["Title"] = "GenerateMarksheet";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    decimal percentage = Model.ExamResultDtos != null ? Math.Round(Model.ExamResultDtos.Select(x => x.ObtainMark).Average(), 2) : 00;
+    int ResultCount = Model?.ExamResultDtos?.Count() ?? 0;
+}
+
+<section class="content">
+    <input type="hidden" id="branchSignature" value="@(Model?.BranchDto?.Signature)" />
+    <div class="row">
+        <div class="col-xs-12 col-lg-12 col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="breadcrumb box-title">Generate Marksheet</h3>
+                    <ol class="breadcrumb pull-right">
+                        <li><a href="Dashboard/Index"><i class="fa fa-dashboard"></i>&nbsp;Dashboard</a></li>
+                        <li class="active">Generate Marksheet</li>
+                    </ol>
+                </div>
+                <hr />
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label>Coustom Date</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="datetime-local" id="dateOfIssue" class="form-control" />
+                        </div>
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-info" onclick="updateDate(@Model?.Id,@Model?.CourseId)">Update</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <div class="row">
+                        @await Html.PartialAsync("_MarksheetPartialView")
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="clearfix">
+                                <hr />
+                            </div>
+                            @if (Model?.ResultCertificateDto?.MarksheetIssueDate != null)
+                            {
+                                <div class="text-left" id="generateDiv">
+                                    <button type="button" id="btnGenerate" class="btn btn-success pull-right" onclick="DownloadMarksheet('marksheetId',`@Model?.StudentId`,`@Model?.ProfileName`,@ResultCount,@Model?.BranchDto?.BranchType);">
+                                        <span id="Load">&nbsp;Generate</span>
+                                    </button>
+                                </div>
+                            }
+
+                            <div class="text-left" id="downloadDiv" style="display:none">
+                                <a href="" id="btnDownload" class="btn btn-success pull-right" target="_blank">
+                                    <span class="fa-fa-download">&nbsp; Download</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="row" id="marksheetId" style="display:none">
+    <table style="width: 100%; margin: 15px 30px 0px 30px; padding: 30px">
+        <tr style="margin: 50px; padding: 30px;">
+            <td colspan="2" style="font-size: 8px; margin: 50px; padding: 30px;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Branch</b>: @(Model?.BranchType == 0 ? "Head Office" : Model?.BranchDto?.CenterName)
+            </td>
+            <td colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td style="font-size: 8px">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Application ID</b>: @Model?.StudentId
+            </td>
+
+        </tr>
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <table style="width: 100%; margin: 15px 30px 0px 30px;">
+        <tr>
+            <td align="center" colspan="3">
+                <div class="col-lg-12" style="text-align: center; font-size: 15px; color: red; font-family: Agency FB">
+                    <u><b><i>Marks Statement</i></b></u><br />
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 8px">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label><b>Condidate Registration Number :</b></label>
+            </td>
+            <td style="font-size: 8px">
+                <label>@Model?.RegistrationDto?.RegistrationNo</label>
+            </td>
+            <td colspan="1"></td>
+        </tr>
+        <tr>
+            <td style="font-size: 8px">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label><b>The Marksheet is Awarded to :</b></label>
+            </td>
+            <td style="font-size: 8px">
+                <label>@Model?.RegistrationDto?.Name</label>
+            </td>
+            <td colspan="1"></td>
+        </tr>
+        <tr>
+            <td style="font-size: 8px">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label><b>On Successfull Completion of the Course:</b></label>
+            </td>
+            <td style="font-size: 8px">
+                <label>@Model?.Course?.CourseFullName</label>
+            </td>
+            <td colspan="1"></td>
+        </tr>
+        <tr>
+            <td style="font-size: 8px">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label><b>Form Our Authorised Study Center :</b></label>
+            </td>
+            <td style="font-size: 8px">Yes Computer Center</td>
+            <td colspan="1"></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <table width="95%" align="center">
+                    <tr>
+                        <td align="center" colspan="3">
+                            <b>MODULES COVERS</b>
+                        </td>
+                    </tr>
+
+                    @foreach (var item in Model?.ExamResultDtos!)
+                    {
+
+                        <tr>
+                            <td style="font-size: 8px;">
+                                <b>&nbsp;&nbsp; @item.ExamDto?.Modules: </b>
+                            </td>
+                            <td colspan="2" style="font-size: 8px;">@item.ExamDto?.ExamName.Trim()</td>
+                        </tr>
+                    }
+
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+
+            <td colspan="3">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <table width="95%" border="1" align="center">
+                    <tr>
+                        <td align="center" colspan="4" bgcolor="#18B5F0"><b>PERFORMANCE AS PREXAMINATION</b></td>
+                    </tr>
+                    <tr style="font-weight:bold">
+                        <th style="font-size: 8px; text-align: center;">Sr No.</th>
+                        <th style="font-size: 8px; text-align: center">Assesment/Modules</th>
+                        <th style="font-size: 8px; text-align: center">TOTAL MARKS</th>
+                        <th style="font-size: 8px; text-align: center">OBTAINED MARKS</th>
+
+                    </tr>
+                    @if (Model.ExamResultDtos != null)
+                    {
+                        int i = 1;
+                        foreach (var item in Model.ExamResultDtos)
+                        {
+                            <tr>
+                                <td style="font-size: 8px;text-align:center">&nbsp;&nbsp; @(i++)</td>
+                                <td style="font-size: 8px;text-align:center">@(Model?.Course?.CourseShortName == "PGDCA" ? item.ExamDto?.Modules : item.ExamDto?.ExamName)</td>
+                                <td style="font-size: 8px;text-align:center">@item.TotalMarks</td>
+                                <td style="font-size: 8px;text-align:center">@item.ObtainMark</td>
+                            </tr>
+                        }
+                    }
+
+
+                    <tr>
+                        <td colspan="1"></td>
+                        <td style="font-size: 8px; text-align: right"> <b>Total :</b> </td>
+                        <td style="font-size: 8px; text-align: center">
+                            <label> <b>@(Model?.ExamResultDtos?.Select(x => x.TotalMarks).Sum())</b> </label>
+                        </td>
+                        <td style="font-size: 8px; text-align: center">
+                            <label><b> @(Model?.ExamResultDtos?.Select(x => x.ObtainMark).Sum())</b></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="4">
+                            <table style="width: 90%">
+                                <tr style="text-align: center; color: white" bgcolor="#4352ac">
+                                    <td>
+                                        Percentage : <label>@percentage</label>
+                                        %
+                                    </td>
+                                    <td>Grade :<label>@(Convert.ToDecimal(percentage).Grad())</label>
+                                    <td>
+                                        Performance : <label>@(Convert.ToDecimal(percentage).Performance())</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+        @if (ResultCount <= 2 || ResultCount == 3)
+        {
+            <tr>
+                <td colspan="3">
+                    <br />
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="3">
+                <table style="width: 100%">
+                    <tr>
+                        <td colspan="1" style="font-size: 8px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Date Of issue :</b></td>
+                        <td style="font-size: 8px;">
+                            <label>@Model?.ResultCertificateDto?.MarksheetIssueDate</label>
+                        </td>
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" style="font-size: 8px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Place Of Issue :</b></td>
+                        <td colspan="2" style="font-size: 8px;">
+                            <label>HEAD OFFICE KORAON PRAYAGRAJ</label>
+                        </td>
+                        <td style="padding-top: 18px; font-size: 8px;">
+                            <span style="float: left;">
+                                ______________________<br />
+                                Examination Controller
+                            </span>
+                        </td>
+                        <td>
+                            <span style="float: right; font-size: 8px">
+                                ______________________&nbsp;&nbsp;<br />
+                                Authorised Signatory
+                            </span>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+
+        @if (ResultCount <= 2)
+        {
+            <tr>
+                <td colspan="3">
+                    <br />
+                </td>
+            </tr>
+
+        }
+
+        <tr>
+            <td colspan="3">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <label>
+                    <u style="border:2px solid; color:#0d1f8a">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </u>
+                </label>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="font-size: 10px;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Thanks For Associating with <b>Yes Computer Center</b>, and best wishes for your bright future.</span>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="3">
+                @if (ResultCount == 3)
+                {
+                    <br />
+                }
+                @if (ResultCount == 2)
+                {
+                    <br />
+                }
+                <table style="width: 95%">
+                    <tr>
+                        <td colspan="2"></td>
+                        <td style="font-size: 8px" colspan="3">
+                            <table style='width: 100%'>
+                                <tr>
+                                    <td><b>EXPLANATION OF EXAMINATION GRADE</b></td>
+                                </tr>
+                                <tr>
+                                    <td><b>85 % and Above</b> : <span style='margin-left: 30px;'>Grade - A+ (Excellent) </span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Above 70 % and below 85 %</b> : Grade - A (Very Good)</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Above 55 % and below 70 %</b> : Grade - B (Good)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Above 30 % and below 55 %</b>: &nbsp;Grade - C (Satisfactory)</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Below 30 %</b>: <span style='margin-left: 60px;'>Try Again</span> </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="text-align: center; font-size: 8px" colspan="3">
+                            <b>Registered Office</b><br />
+                            <b>Yes Computer Center</b><br />
+                            (AN ISO 9001 : 2015 CERTIFIED INSTITUTE)<br />
+                            Ladiyari Road Jaisawal Petrol Pump<br />
+                            Koraon Prayagraj, Pin - 212306<br />
+                            <b>Call US </b>: +91 9936573728<br />
+                            <b>Email</b> : Info@yescc.in<br />
+                            <b>Web</b> :www.yescc.in
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+    </table>
+
+
+</div>
+
+@section Scripts{
+    <script type="text/javascript" src="~/Feature/GenrateResult/Marksheet.js"></script>
+}

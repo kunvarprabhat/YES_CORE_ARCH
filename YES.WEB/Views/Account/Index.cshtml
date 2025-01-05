@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="keywords" content="yess login, yes computer center login page, yes computer center, yescc loing, yescc login page, yes web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Yescc</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <!-- Template styles-->
+    <link rel="stylesheet" href="~/app-assets/css/app.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link href="~/toastr/toastr.min.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="loginForm">
+        <div class="container">
+            <div class="row" style="margin-top:50px;">
+                <div class="col-lg-4"></div>
+
+                <div class="col-lg-4 tallyslider">
+                    <div class="form-group">
+                        <br />
+                        <a href="Home/Index">
+                            <img src="~/images/yescc.png" alt="Webful Vision Eye Care" height="50px" width="350px" />
+                        </a>
+                    </div>
+                    <div class="mt-4" id="authDiv">
+                        @await Html.PartialAsync("_LoginPartialView")
+                    </div>
+                    <div class="mt-4" id="forgotDiv" style="display:none">
+                        @await Html.PartialAsync("_ForgotPartialView")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript" src="~/js/jquery.js"></script>
+    <!-- Bootstrap jQuery -->
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/toastr/toastr.min.js"></script>
+    <script src="~/Feature/Account/Login.js"></script>
+</body>
+</html>

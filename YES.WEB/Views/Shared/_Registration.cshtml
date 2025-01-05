@@ -1,0 +1,426 @@
+﻿@using YES.Dtos.Student;
+@using YES.Utility.Enums;
+@model RegistrationDto
+<div class="mid_box">
+    <div class="rounded">
+        <div id="pnlApplicationForm">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="form_box_level">
+                                <img src="~/Images/StepImage.png" id="imgstep" style="border-width: 0px; width: 1100px" />
+
+                            </div>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="pnlmaster">
+                <form id="registrationForm">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+
+                                    <table style="width: 100%;" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td align="left">
+                                                    <div class="form_tab">
+                                                        <span id="Span1">Personal Details /  व्यक्तिगत विवरण</span>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <hr />
+                                                    <input asp-for="Id" hidden /> 
+                                                    <input asp-for="RegistrationNo" hidden />
+                                                    <table cellspacing="4" cellpadding="2" width="100%" class="tablerowpad">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        
+                                                                        <span id="lblCNameCap">Name :  नाम</span><span class="text-danger">*</span>
+                                                                        :
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <input asp-for="Name" maxlength="60" placeholder="Please enter your Name" />
+                                                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lblDOBCap">Date of Birth :  जन्म तिथि<span class="text-danger">*</span></span>:
+                                                                        <input type="hidden" name="Dob" id="txtDob" />
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <select id="ddlday" asp-for="Day">
+                                                                            <option value="0">--Day--</option>
+                                                                            @{
+                                                                                for (int i = 1; i <= DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month); i++)
+                                                                                {
+                                                                                    if (i < 10)
+                                                                                    {
+                                                                                        string j = "0" + i;
+                                                                                        <option value="@j.ToString()">@j.ToString()</option>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <option value="@i.ToString()">@i.ToString()</option>
+                                                                                    }
+
+                                                                                }
+                                                                            }
+                                                                        </select>
+                                                                        <span asp-validation-for="Day" class="text-danger"></span>
+
+                                                                        <select id="ddlmonth" asp-for="Month">
+                                                                            <option value="0">--Month--</option>
+                                                                            @{
+                                                                                for (int month = 1; month <= 12; month++)
+                                                                                {
+                                                                                    string monthName = new DateTime(2013, month, 1).ToString("MMMM");
+
+                                                                                    if (month < 10)
+                                                                                    {
+                                                                                        string j = monthName + " (0" + month + ")";
+                                                                                        <option value="@j">@j</option>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        monthName = monthName + " (" + month + ")";
+                                                                                        <option value="@monthName">@monthName</option>
+                                                                                    }
+
+                                                                                }
+                                                                            }
+                                                                        </select>
+                                                                        <span asp-validation-for="Month" class="text-danger"></span>
+
+                                                                        <select id="ddlyear" asp-for="Years">
+                                                                            <option value="0">--Years--</option>
+                                                                            @{
+                                                                                int year = DateTime.Now.Year - 70;
+
+                                                                                for (int Y = year; Y <= DateTime.Now.Year - 5; Y++)
+                                                                                {
+                                                                                    <option value="@Y.ToString()">@Y.ToString()</option>
+                                                                                }
+                                                                            }
+                                                                            <span asp-validation-for="Years" class="text-danger"></span>
+                                                                        </select>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lblFNameCap">Father's Name : पिता का नाम</span><span class="text-danger">*</span>
+                                                                        :
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <input asp-for="FatherName" maxlength="60" placeholder="Please enter your father's Name" />
+                                                                        <span asp-validation-for="FatherName" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span>Mother's Name :  मां का नाम</span><span class="text-danger">*</span>
+                                                                        :
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <input asp-for="MotherName" maxlength="60" placeholder="Please enter your mother's Name" />
+                                                                        <span asp-validation-for="MotherName" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lblCaptypeofid">Identity Card Number :   पहचान पत्र संख्या</span> <span class="text-danger">*</span>:
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <input asp-for="IdentityNo" placeholder="Please enter Identity Card Number" />
+                                                                        <span asp-validation-for="IdentityNo" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lblGenderCap">Gender :  लिंग</span><span class="text-danger">*</span> :
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        @Html.DropDownListFor(m => m.Gender,new SelectList(Enum.GetValues(typeof(Gender))),"Select Gender")
+                                                                        <span asp-validation-for="Gender" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table style="width: 100%;" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td align="left">
+                                                    <div class="form_tab">
+                                                        <span id="lblContactDetailsSectionHeader">Contact Details : संपर्क विवरण</span>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <hr />
+                                                    <table cellspacing="4" cellpadding="2" width="100%" class="tablerowpad">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lblStateAddressCap">State : राज्य</span> <span class="text-danger">*</span>:
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <select id="ddlStateAddress" name="State" style="height: 22px;" asp-for="State">
+                                                                            <option value="0">--Select--</option> 
+                                                                            <option value="01">ANDAMAN AND NICOBAR ISLANDS</option>
+                                                                            <option value="02">ANDHRA PRADESH</option>
+                                                                            <option value="03">ARUNACHAL PRADESH</option>
+                                                                            <option value="04">ASSAM</option>
+                                                                            <option value="05">BIHAR</option>
+                                                                            <option value="06">CHANDIGARH</option>
+                                                                            <option value="07">CHHATTISGARH</option>
+                                                                            <option value="08">DADRA AND NAGAR HAVELI</option>
+                                                                            <option value="09">DAMAN AND DIU</option>
+                                                                            <option value="10">DELHI</option>
+                                                                            <option value="11">GOA</option>
+                                                                            <option value="12">GUJARAT</option>
+                                                                            <option value="13">HARYANA</option>
+                                                                            <option value="14">HIMACHAL PRADESH</option>
+                                                                            <option value="15">JAMMU AND KASHMIR</option>
+                                                                            <option value="16">JHARKHAND</option>
+                                                                            <option value="17">KARNATAKA</option>
+                                                                            <option value="18">KERALA</option>
+                                                                            <option value="37">LADAKH</option>
+                                                                            <option value="19">LAKSHADWEEP</option>
+                                                                            <option value="20">MADHYA PRADESH</option>
+                                                                            <option value="21">MAHARASTRA</option>
+                                                                            <option value="22">MANIPUR</option>
+                                                                            <option value="23">MEGHALAYA</option>
+                                                                            <option value="24">MIZORAM</option>
+                                                                            <option value="25">NAGALAND</option>
+                                                                            <option value="26">ODISHA</option>
+                                                                            <option value="27">PUDUCHERRY</option>
+                                                                            <option value="28">PUNJAB</option>
+                                                                            <option value="29">RAJASTHAN</option>
+                                                                            <option value="30">SIKKIM</option>
+                                                                            <option value="31">TAMIL NADU</option>
+                                                                            <option value="36">TELANGANA</option>
+                                                                            <option value="32">TRIPURA</option>
+                                                                            <option value="33">UTTAR PRADESH</option>
+                                                                            <option value="34">UTTARAKHAND</option>
+                                                                            <option value="35">WEST BENGAL</option>
+                                                                        </select>
+                                                                        <span asp-validation-for="State" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lblCityCap">City/Town : शहर और कस्बा  </span> <span class="text-danger">*</span>:
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <input asp-for="City" maxlength="60" placeholder="Please enter your City" />
+                                                                        <span asp-validation-for="City" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lblAddressCap">Communication Address :  संचार पता <span class="text-danger">*</span></span>:
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <textarea rows="3" style="width:270px" asp-for="Address"> </textarea>
+                                                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lblPincodeCap">Pin Code :  पिन कोड</span> <span class="text-danger">*</span>:
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <input asp-for="PinCode" MaxLength="6" placeholder="Please enter your pincode" />
+                                                                        <span asp-validation-for="PinCode" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lbleidCap">Email Address :  ईमेल </span> <span class="text-danger">*</span>:
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <input asp-for="EmailId" placeholder="Please enter your email id" />
+                                                                        <span asp-validation-for="EmailId" class="text-danger"></span>
+                                                                    </div>
+
+                                                                </td>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lblmobilenoCap">Mobile Number : मोबाइल नंबर </span> <span class="text-danger">*</span>:
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <input asp-for="MobileNo" placeholder="Please enter your mobile No." />
+                                                                        <span asp-validation-for="MobileNo" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+       @*                      <tr>
+                                <td>
+                                    <table style="width: 100%;" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td align="left">
+                                                    <div class="form_tab">
+                                                        Choose Password
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <hr />
+
+                                                    <table cellspacing="4" cellpadding="2" width="100%" class="tablerowpad">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td align="right" width="25%">
+                                                                    <div class="form-group">
+                                                                        <span id="lblPasswordCap">Password :  पासवर्ड</span>:
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left" width="25%">
+                                                                    <div class="form-group">
+                                                                        <input asp-for="Password" placeholder="Please enter your password" />
+                                                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+                                                                <td align="right" width="25%">
+                                                                    <div class="form-group">
+                                                                        <span id="lblConfirmPasswordCap">Confirm Password : पासवर्ड की पुष्टि कीजिये</span>:
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left" width="25%">
+                                                                    <div class="form-group">
+                                                                        <input asp-for="ConfirmPassword" placeholder="Please enter your confirm password" />
+                                                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lblSecurityQuestionCap">Security Question :  सुरक्षा प्रश्न</span>:
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <select id="ddlSecurityQuestion" style="width: 200px;" asp-for="SecurityQuestion">
+                                                                            <option value="0">--Select--</option>
+                                                                            <option value="01">Which is the website you rarely visit?</option>
+                                                                            <option value="02">What is the name of your first school?</option>
+                                                                            <option value="03">What is your neighbor's pet name?</option>
+                                                                            <option value="04">What is the registration number of your first vehicle?</option>
+                                                                            <option value="05">Which is your favorite book?</option>
+                                                                        </select>
+                                                                        <span asp-validation-for="SecurityQuestion" class="text-danger"></span>
+                                                                    </div>
+
+                                                                </td>
+                                                                <td align="right">
+                                                                    <div class="form-group">
+                                                                        <span id="lblSecurityAnswerCap">Security Answer : सुरक्षा जवाब</span>:
+                                                                    </div>
+                                                                </td>
+                                                                <td align="left">
+                                                                    <div class="form-group">
+                                                                        <input asp-for="SecurityAnswer" placeholder="Please enter your security answer" />
+                                                                        <span asp-validation-for="SecurityAnswer" class="text-danger"></span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr> *@
+                        </tbody>
+                    </table>
+                    <table cellspacing="6" cellpadding="4" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table cellspacing="0" width="100%" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td align="center">
+                                                    <button type="button" id="btnSubmit" class="btn btn-success" style="width:200px">Submit</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

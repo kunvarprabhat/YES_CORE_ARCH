@@ -1,0 +1,89 @@
+﻿@using YES.Comman.Interfaces;
+@using YES.Utility.Enums;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    @inject ICurrentUserService _currentUser;
+
+}
+<section class="content">
+    <div class="row">
+        @if (_currentUser.RoleName != null && _currentUser.RoleName.Equals(YES.Utility.Enum.Roles.SuperAdmin.ToString()))
+        {
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <a href="~/Course/Index" class="btn btn-block btn-social btn-bitbucket">
+                            <i class="fa fa-user"></i>Add Course Name
+                        </a>
+                        <a href="~/Syllabus/Index" class="btn btn-block btn-social btn-success">
+                            <i class="fa fa-book"></i>Add Course Syllabus
+                        </a>
+                        <a href="~/Exam/Index" class="btn btn-block btn-social btn-github">
+                            <i class="fa fa-edit"></i>Add Exam/Modules
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+        }
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-navy">
+                <div class="inner">
+                    <a href="~/Registration/Index" class="btn btn-block btn-social btn-google">
+                        <i class="fa fa-tasks"></i>Registration List
+                    </a>
+                    <a href="~/Student/Application" class="btn btn-block btn-social bg-maroon">
+                        <i class="fa fa-edit"></i>Application Form
+                    </a>
+                    <a href="~/Student/Index" class="btn btn-block btn-social bg-purple">
+                        <i class="fa fa-users"></i>Students List
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <a href="~/GalleryImages?galleryType=@GalleryType.Slider.ToString()" class="btn btn-block btn-social btn-google">
+                        <i class="fa fa-picture-o"></i>Slider Images
+                    </a>
+                    <a href="~/GalleryImages?galleryType=@GalleryType.PhotoGallery.ToString()" class="btn btn-block btn-social bg-maroon">
+                        <i class="fa fa-picture-o"></i>Photo Gallery
+                    </a>
+                    <a href="~/News/Index" class="btn btn-block btn-social bg-purple">
+                        <i class="fa fa-envelope"></i>Add News And Updates
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <a href="~/Dashboard/Enquiry" class="btn btn-block btn-social btn-google">
+                        <i class="fa fa-edit"></i>Course Enquiry
+                    </a>
+                    <a href="~/Dashboard/Enquiry" class="btn btn-block btn-social bg-maroon">
+                        <i class="fa fa-phone"></i>Contact Enquiry
+                    </a>
+                    <a href="~/Account/ChangePassword" class="btn btn-block btn-social bg-purple">
+                        <i class="fa fa-key"></i>Change Password
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container">
+                <div class="col-lg-12 card">
+                    <h4>Top Heder message </h4>
+                    kdhfjksh dfkjhdsjkfhdk
+                </div>
+            </div>
+        </div>
+    </div> 
+
+</section>

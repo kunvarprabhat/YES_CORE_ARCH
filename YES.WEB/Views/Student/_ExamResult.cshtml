@@ -1,0 +1,53 @@
+﻿@using YES.Dtos.Result
+@model List<ExamResultDto>
+
+@if (Model != null)
+{
+    <input type="hidden" id="resultCount" value="@(Model?.Count()!)" />
+    <!-- The timeline -->
+    @foreach (var item in Model)
+    {
+        <li class="time-label">
+            <span class="bg-red">@item.CreatedDate.ToString("dd MM yyyyy")</span>
+        </li>
+        <li>
+            <i class="fa fa-user bg-blue"></i>
+            <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i> @item.CreatedDate.ToString("hh:ss tt")</span>
+                <h3 class="timeline-header">@item.ExamDto.ExamName given by Admin</h3>
+                <div class="timeline-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><label>Exam Name : </label>@item.ExamDto?.ExamName</td>
+                                <td><label>Obtain Mark :</label> @item.ObtainMark </td>
+                                <td><label>Total Mark :</label>@item.TotalMarks</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Percentage :</td>
+                                    <td>(@item.ObtainMark X @item.TotalMarks )/100</td>
+                                    <td> :</td>
+                                    <td>@item.Percentage%</td>
+                                    <td>Grade :</td>
+                                    <td>@item.Grad</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="timeline-footer">
+                    <a class="btn btn-primary btn-xs Edit" onclick="editExam(@item.Id,@item.ExamDto?.CourseId)">Edit</a>
+                    <button type="button" class="btn btn-danger btn-xs Delete" onclick="DeleteExam(@item.Id)">Delete</button>
+                </div>
+            </div>
+        </li>
+
+    }
+    <li><i class="fa fa-clock-o bg-gray"></i></li>
+}

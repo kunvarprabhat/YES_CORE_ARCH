@@ -1,0 +1,371 @@
+﻿@using YES.Comman.Interfaces;
+@using YES.Dtos.Student;
+@using YES.Utility.Enum;
+@using YES.Utility.Enums;
+@model StudentDto
+
+@{
+    @inject ICurrentUserService _currentUser;
+    ViewData["Title"] = "StudentProfile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        User Profile
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="~/Dashboard/Index"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="~/Student/Index">User profile</a></li>
+        <li class="active">User profile</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    <span id="ContentPlaceHolder1_Picture">
+                        <a href="#" data-toggle="modal" data-target="#modal-default">
+                            <img class="profile-user-img img-responsive img-circle" src="@Model.ProfilePath?.Replace("wwwroot","")" alt="User profile picture">
+                        </a>
+                    </span>
+
+                    <h3 class="profile-username text-center">
+                        <label>@Model.RegistrationDto.Name</label>
+                    </h3>
+
+                    <p class="text-muted text-center">
+                        <input type="hidden" value="@Model.Course.CourseId" id="courseId" />
+                        <label>@Model.Course.CourseShortName</label>
+                    </p>
+
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <a style="color:green" href="~/Registration/Registration?id=@Model.RegistrationDto.Id">Edit Registration </a>
+                            <a class="pull-right"><span class="fa fa-check"></span></a>
+                        </li>
+                        <li class="list-group-item">
+                            <a style="color:green" href="~/Student/Application?id=@Model.Id">Edit Application </a>
+                            <a class="pull-right"><span class="fa fa-check"></span></a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" style="color:green" data-toggle="modal" data-target="#modal-default"> Update Image/Signature</a>
+
+                            <a class="pull-right"><span class="fa fa-check"></span></a>
+
+                        </li>
+                    </ul>
+                    @if (_currentUser.RoleName != null && _currentUser.RoleName.Equals(Roles.SuperAdmin.ToString()))
+                    {
+                        <a href="#settings" data-toggle="tab" class="btn btn-primary btn-block">Give Examinition Marks</a>
+                    }
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            <!-- About Me Box -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">About Me</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <strong><i class="fa fa-book margin-r-5"></i>Education</strong>
+
+                    @foreach (var item in Model.EducationalDetailDtos)
+                    {
+                        <p class="text-muted">
+                            <label>@item.ExamName</label> , <label>@item.BoardName</label> , <label>@item.YearOfPassing</label>
+                        </p>
+                    }
+                    
+
+                    <hr>
+
+                    <strong><i class="fa fa-map-marker margin-r-5"></i>Location</strong>
+
+                    <p class="text-muted">
+                        <label id="State">@Model.RegistrationDto.State</label>
+                        ,
+                        <label id="City">@Model.RegistrationDto.City</label>
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="fa fa-map-marker margin-r-5"></i>Branch</strong>
+
+                    <p class="text-muted">
+                        <label class="centerId">@Model.BranchDto.CenterId</label>
+                        ,
+                        <label>@Model.BranchDto.CenterName</label>
+                    </p>
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#activity" data-toggle="tab">Profile Details</a></li>
+                    <li><a href="#timeline" data-toggle="tab">Exam Status</a></li>
+                    @if (_currentUser.RoleName != null && _currentUser.RoleName.Equals(Roles.SuperAdmin.ToString()))
+                    {
+                        <li><a href="#settings" data-toggle="tab">Give Examinition Marks</a></li>
+                    }
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+                        <!-- Post -->
+                        <div class="post">
+                            <div class="user-block">
+                                <label>Personal Details</label>
+                            </div>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td align="left" width="25%">
+                                            <span id="lblFName">Father's Name : पिता का नाम</span>
+                                            :
+                                        </td>
+                                        <td align="left" width="25%">
+                                            <label>@Model.RegistrationDto.FatherName</label>
+                                        </td>
+                                        <td align="right">
+                                            <span>Mother's Name :  मां का नाम</span>
+                                            :
+                                        </td>
+                                        <td align="right">
+                                            <label>@Model.RegistrationDto.MotherName</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">
+                                            <span id="lblGenderCap">Gender :  लिंग</span>
+                                            :
+                                        </td>
+                                        <td align="left">
+                                            <label>@Model.RegistrationDto.Gender</label>
+
+                                        </td>
+                                        <td align="right">
+                                            <span id="lblDOBCap">Date of Birth :  जन्म तिथि</span>:
+                                        </td>
+                                        <td align="right">
+                                            <label>@Model.RegistrationDto.Dob</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="left">
+                                            <span id="lbltypeofidentification">Identity Type :   पहचान के प्रकार</span>
+                                            :
+                                        </td>
+                                        <td align="left">
+                                            <label asp-for="RegistrationDto.IdentityNo"></label>
+                                        </td>
+                                        <td align="right">
+                                            <span id="lblCaptypeofid">Identity Card Number :   पहचान पत्र संख्या</span>:
+                                        </td>
+                                        <td align="right">
+                                            <label>@Model.RegistrationDto.IdentityNo</label>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.post -->
+                        <!-- Post -->
+                        <div class="post clearfix">
+                            <div class="user-block">
+                                <label>Contact Details</label>
+                            </div>
+                            <table class="table" style="background-color: #f4f7f07a; border: none">
+                                <tbody>
+                                    <tr>
+                                        <td align="left" width="25%">
+                                            <span id="Span1">Communication Address : संचार पता</span>
+                                            :
+                                        </td>
+                                        <td align="left" width="25%">
+                                            <label>@Model.RegistrationDto.Address</label>
+                                        </td>
+                                        <td align="right">
+                                            <span>City/Town/Village : शहर कस्बा और गाँव</span>
+                                            :
+                                        </td>
+                                        <td align="right">
+                                            <label>@Model.RegistrationDto.City</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">
+                                            <span id="Span2">State : राज्य</span>
+                                            :
+                                        </td>
+                                        <td align="left">
+                                            <label>@Model.RegistrationDto.State</label>
+
+                                        </td>
+                                        <td align="right">
+                                            <span id="Span3">District : जिला</span>:
+                                        </td>
+                                        <td align="right">
+                                            <label>@Model.RegistrationDto.City</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="left">
+                                            <span id="Span4">Email Address : ईमेल</span>
+                                            :
+                                        </td>
+                                        <td align="left">
+                                            <label>@Model.RegistrationDto.EmailId</label>
+                                        </td>
+                                        <td align="right">
+                                            <span id="Span5">Mobile Number : मोबाइल नंबर</span>:
+                                        </td>
+                                        <td align="right">
+                                            <label>@Model.RegistrationDto.MobileNo</label>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.post -->
+                        <!-- Post -->
+                        <div class="post">
+
+                            <div class="user-block">
+                                <label>Qualification Details</label>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Exam Name</th>
+                                        <th>Board</th>
+                                        <th>Year of Passing</th>
+                                        <th>Mark Obtained</th>
+                                        <th>% Marks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.EducationalDetailDtos)
+                                    {
+                                        <tr>
+                                            <td>@item.ExamName</td>
+                                            <td>@item.BoardName</td>
+                                            <td>@item.YearOfPassing</td>
+                                            <td>@item.ObtainedMarks</td>
+                                            <td>@item.Percentage</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.post -->
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="timeline">
+                        <ul class="timeline timeline-inverse" id="ExamResult">
+                            @await Html.PartialAsync("_ExamResult", Model.ExamResultDtos)
+
+                        </ul>
+
+                        @if (Model.ExamResultDtos != null && Model.ExamResultDtos.Count() != 0)
+                        {
+
+                            @if (_currentUser.RoleName != null && _currentUser.RoleName.Equals(Roles.SuperAdmin.ToString()))
+                            {
+                                <a href="../Certificate?id=@Model.Id" class="btn btn-primary pull-right" style="margin-right: 5px;" id="genCertificate">Generate Certificate</a>
+                                <a href="../Marksheet?id=@Model.Id" class="btn btn-primary pull-right" style="margin-right: 5px;" id="genMarksheet">Generate MarkSheet</a>
+                            }
+
+                        }
+                        else
+                        {
+                            <div id="NotFound"></div>
+                        }
+                    </div>
+                    <div class="tab-pane" id="settings">
+                        <form id="resultForm">
+                            <input type="hidden" name="StudentId" value="@Model.Id" />
+                            <input type="hidden" name="Id" id="examResultId" />
+                            <div class="form-horizontal" id="examEntryDetails">
+                                @await Html.PartialAsync("_ResultEntry",Model.ExamResultDto)
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!---  .Modol Contant    -->
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="userProfileForm" enctype="multipart/form-data">
+                    <input type="hidden" name="StudentId" value="@Model.Id" id="StudentId" />
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Update Student Image/Signature</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Upload Image</label>
+                                    <input type="file" class="form-control" name="FileToUpload" onchange="readURL(this,'profileScr');" accept=".png, .jpg, .jpeg" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div id="user-profile-view" style="height: 100px; width: 110px; border: 1px solid;" class="img-thumbnail">
+                                    <img src="" id="profileScr" height="100%" width="100%" /><br />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Upload Signature</label>
+                                    <input type="file" class="form-control" name="ProfileSignatureImage" onchange="readURL(this,'signatureSrc');" id="user-profile" action=".png, .jpg, .jpeg" />
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div id="user-profile-signature-view" style="height: 50px; width: 140px; border: 1px solid;margin-top:20px" class="img-thumbnail">
+                                    <img src="" id="signatureSrc" height="100%" width="100%" /><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" onclick="btnUpload()">UPLOAD</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</section>
+@section Scripts{
+    <script src="~/feature/comman/submitdata.js"></script>
+    <script type="text/javascript" src="~/Feature/Student/Student-Profile.js"></script>
+    <script type="text/javascript" src="~/Feature/ExamResult/Create-ExamResult.js"></script>
+}

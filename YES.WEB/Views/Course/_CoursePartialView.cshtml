@@ -1,0 +1,59 @@
+﻿@using YES.Dtos.Course;
+@model CourseVm
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Add Course</h4>
+        </div>
+        <form id="courseForm">
+            <div class="modal-body">
+
+                <table id="maintable" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                    <thead>
+                        <tr role="row">
+                            <th>Course Short Name</th>
+                            <th>Course Full Name</th>
+                            <th>Course Duration</th>
+                            <th>Tools</th>
+                        </tr>
+                    </thead>
+                    <tbody id="courseDetailsId">
+
+                        <tr class="data-course">
+                            <td>
+                                <input type="hidden" asp-for="CourseDtos[0].CourseId" class="form-control" />
+                                <input asp-for="CourseDtos[0].CourseShortName" class="form-control" />
+                                <span asp-validation-for="CourseDtos[0].CourseShortName" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <input asp-for="CourseDtos[0].CourseFullName" class="form-control" />
+                                <span asp-validation-for="CourseDtos[0].CourseFullName" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <input asp-for="CourseDtos[0].Duration" class="form-control" />
+                                <span asp-validation-for="CourseDtos[0].Duration" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-primary classAdd"><i class="fa fa-plus"></i></button>
+                                <button type="button" disabled class="deleteContact btn btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <span id="load">
+                    <button type="button" class="btn btn-success" id="btnSubmit" onclick="btnSubmitCourseData()">Save changes</button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->

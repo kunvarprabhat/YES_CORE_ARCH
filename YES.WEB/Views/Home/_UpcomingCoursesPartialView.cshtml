@@ -1,0 +1,31 @@
+﻿@using YES.Dtos.Batches;
+@model IEnumerable<BatchDto>
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="col-lg-4">
+            <div class="tallyslider">
+                <a href="#">
+                    <img src="~/images/intro/ADCA.png" class="tallyimg" alt="Logo 1">
+
+                </a><p style="font-size: 20px; margin-top: -42px; margin-left: 30px;"><a href="#"></a><a style="color: #fff;" href="#">@item.courseDto.CourseShortName</a></p>
+                <div class="duration" style="margin-top: 40px; font-size: 18px;">
+
+                    Course Duration
+                    <p>@item.courseDto.Duration</p>
+                </div>
+                <div class="batch" style="margin-top: 10px; font-size: 18px;">
+                    <img style="margin: 0 auto;" src="~/images/intro/batch-date.png" alt="intro">
+                    Upcoming Batch
+                    <p>@item.UpcomingBatch.Value.ToString("dd/MM/yyyy hh:mm tt")</p>
+                </div>
+                <div class="view_btn1"><a class="x-btn view_btn" href="course-details/@item.CourseId">View Course Structure</a></div>
+                <div class="book_btn">
+
+                    <a class="paoc-popup popupaoc-button" href="javascript:void(0);" data-conf="{&quot;content&quot;:{ &quot;target&quot; : &quot;#paoc-modal-7&quot;, &quot;effect&quot;: &quot;fadein&quot;, &quot;positionX&quot;: &quot;center&quot;, &quot;positionY&quot;: &quot;center&quot;, &quot;fullscreen&quot;: false, &quot;speedIn&quot;: 300, &quot;speedOut&quot;: 300, &quot;delay&quot;: 150},&quot;loader&quot;:{&quot;active&quot;: true},&quot;overlay&quot;:{&quot;active&quot;: true}}">Book Your Seat</a>
+                </div>
+            </div>
+        </div>
+    }
+} 

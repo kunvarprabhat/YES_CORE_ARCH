@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="breadcrumb box-title">News</h3>
+                    <ol class="breadcrumb pull-right">
+                        <li><a href="~/Dashboard/Index"><i class="fa fa-dashboard"></i>&nbsp;Dashboard</a></li>
+                        <li class="active">News</li>
+                    </ol>
+                </div>
+                <div class="card-header pull-right" style="margin:5px;float:left">
+                    <a href="~/News/Create" class="btn btn-success" style="font-size: 15px;"><i class="fa fa-plus-circle"></i>&nbsp;Add News</a>
+                </div>
+                <hr />
+                <div class="box-body">
+
+                    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="tblNewsList" class="table table-bordered table-striped dataTable table-responsive" role="grid" aria-describedby="example1_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th>Sr.No</th>
+                                            <th>Course Name</th>
+                                            <th>Course Duration</th>
+                                            <th>Tools</th>
+                                        </tr>
+                                    </thead>
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+@section Scripts{
+    <script type="text/javascript" src="~/Feature/News/News.js"></script>
+}

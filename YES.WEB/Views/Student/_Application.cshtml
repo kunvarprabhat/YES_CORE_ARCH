@@ -1,0 +1,295 @@
+﻿@using YES.Dtos.Student
+@using YES.Utility.Enums
+@model StudentDto
+<div class="rounded">
+    <div id="pnlApplicationForm">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="form_box_level">
+                            <img src="~/Images/Step2_4.png" id="imgstep" style="border-width: 0px; width: 1100px" />
+
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="pnlmaster">
+            <form id="applicationForm">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table style="width: 100%;" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                        <tr>
+                                            <td align="left">
+                                                <div class="form_tab">
+                                                    <span id="Span1">Personal Details /  व्यक्तिगत विवरण</span>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <hr />
+                                                <input asp-for="Id" hidden />
+                                                <input asp-for="StudentId" hidden />
+                                                <table cellspacing="4" cellpadding="2" width="100%" class="tablerowpad">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="right">
+                                                                <div class="form-group">
+                                                                    Select Stuedent Registration No:
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    @Html.DropDownListFor(m => m.RegistrationDto.Id,new SelectList(ViewBag.RegList, "Id", "RegistrationNo"),"Select Students",new{@onchange="getRegistration(this)"})
+                                                                    <span asp-validation-for="RegistrationDto.Id" class="text-danger"></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="right">
+                                                                <div class="form-group">
+
+                                                                    <span id="lblCNameCap">Name :  नाम</span><span class="text-danger">*</span>
+                                                                    :
+                                                                </div>
+                                                            </td>
+                                                            <td align="left">
+                                                                <div class="form-group">
+                                                                    <input asp-for="RegistrationDto.Name" maxlength="60" placeholder="Please enter your Name" disabled />
+                                                                    <span asp-validation-for="RegistrationDto.Name" class="text-danger"></span>
+                                                                </div>
+                                                            </td>
+                                                            <td align="right">
+                                                                <div class="form-group">
+                                                                    <span id="lblDOBCap">Date of Birth :  जन्म तिथि<span class="text-danger">*</span></span>:
+
+                                                                </div>
+                                                            </td>
+                                                            <td align="left">
+                                                                <div class="form-group">
+                                                                    <input asp-for="RegistrationDto.Dob" maxlength="60" placeholder="Please enter your DOB" disabled />
+                                                                    <span asp-validation-for="RegistrationDto.Dob" class="text-danger"></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="right">
+                                                                <div class="form-group">
+                                                                    <span id="lblFNameCap">Father's Name : पिता का नाम</span><span class="text-danger">*</span>
+                                                                    :
+                                                                </div>
+                                                            </td>
+                                                            <td align="left">
+                                                                <div class="form-group">
+                                                                    <input asp-for="RegistrationDto.FatherName" maxlength="60" placeholder="Please enter your father's' Name" disabled />
+                                                                    <span asp-validation-for="RegistrationDto.FatherName" class="text-danger"></span>
+                                                                </div>
+                                                            </td>
+                                                            <td align="right">
+                                                                <div class="form-group">
+                                                                    <span id="lblDOBCap">Mother's Name :  मां का नाम<span class="text-danger">*</span></span>:
+
+                                                                </div>
+                                                            </td>
+                                                            <td align="left">
+                                                                <div class="form-group">
+                                                                    <input asp-for="RegistrationDto.MotherName" maxlength="60" placeholder="Please enter your mother's' Name" disabled />
+                                                                    <span asp-validation-for="RegistrationDto.MotherName" class="text-danger"></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td align="right">
+                                                                <div class="form-group">
+                                                                    <span id="lblGenderCap">Gender :  लिंग</span><span class="text-danger">*</span> :
+                                                                </div>
+                                                            </td>
+                                                            <td align="left">
+                                                                <div class="form-group">
+                                                                    @Html.DropDownListFor(m => m.RegistrationDto.Gender,new SelectList(Enum.GetValues(typeof(Gender))),"Select Gender",new { disabled = "disabled" })
+                                                                    <span asp-validation-for="RegistrationDto.Gender" class="text-danger"></span>
+                                                                </div>
+                                                            </td>
+                                                            <td align="right">
+                                                                <div class="form-group">
+                                                                    <span id="lblCategoryCap">Category :  वर्ग</span><span class="text-danger">*</span> :
+                                                                </div>
+                                                            </td>
+                                                            <td align="left">
+                                                                <div class="form-group">
+                                                                    @Html.DropDownListFor(m => m.Category,new SelectList(Enum.GetValues(typeof(Category))),"Select Category")
+                                                                    <span asp-validation-for="Category" class="text-danger"></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="width: 100%;" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                        <tr>
+                                            <td align="left">
+                                                <div class="form_tab">
+                                                    <span id="lblApplyForSectionHeader">Applying For :  आवेदन</span>
+                                                </div>
+                                                <hr />
+
+                                                <table cellspacing="6" cellpadding="4" width="100%" class="tablerowpad">
+                                                    <tbody>
+                                                        <tr id="trApplyFor">
+                                                            <td align="right" width="45%">
+                                                                <span id="lblCapApplyFor">Apply For : आवेदन</span>:
+                                                            </td>
+                                                            <td align="left" width="55%">
+                                                                @Html.DropDownListFor(m => m.CourseId,new SelectList(ViewBag.CourseList,"CourseId", "CourseShortName"),"Select Category")
+                                                                <span asp-validation-for="CourseId" class="text-danger"></span>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="trQualExam">
+                                                            <td align="right" width="40%" valign="top">
+                                                                <span id="lblCapQualExam">Qualifying Exam :  योग्यता परीक्षा</span>:
+                                                            </td>
+                                                            <td align="left" width="60%">
+                                                                <table id="chkQualifyingExam">
+                                                                    <tbody>
+                                                                        @for (int i = 0; i < Enum.GetValues(typeof(EducationName)).Length; i++)
+                                                                        {
+                                                                            string isChecked = string.Empty;
+                                                                            string isDisabled = string.Empty;
+                                                                            if (Model?.EducationalDetailDtos?.Count() > i && Equals(Model.EducationalDetailDtos[i].ExamName, @Enum.GetValues(typeof(EducationName))?.GetValue(i)!.ToString()))
+                                                                            {
+                                                                                isChecked = "checked";
+                                                                                isDisabled = "disabled";
+                                                                            }
+                                                                            <tr>
+                                                                                <td>
+
+                                                                                    <input id="chkQualifyingExam_@i" @isDisabled @isChecked type="checkbox" value="@Enum.GetValues(typeof(EducationName))?.GetValue(i)!.ToString()" onclick="chkeductionvalue(@i,this)">
+                                                                                    <label for="chkQualifyingExam_@i">
+                                                                                        @Enum.GetValues(typeof(EducationName))?.GetValue(i)!.ToString()
+
+                                                                                    </label>
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div id="pnlContactDetails">
+                                    <table style="width: 100%;" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td align="left">
+                                                    <div class="form_tab" style="width: 253px;">
+                                                        <span id="lblEducationalSectionHeader">Education Details :  शिक्षा विवरण</span>
+
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <hr />
+                                                    <table class="table">
+                                                        <tr style="background-color: #045ea0;">
+                                                            <th>Examname</th>
+                                                            <th>Board</th>
+                                                            <th>Year of Passing</th>
+                                                            <th>Mark Obtained</th>
+                                                            <th>Total Mark</th>
+                                                            <th>% Marks</th>
+                                                        </tr>
+                                                        <tbody class="attrTable" id="eductionDetailsId">
+                                                            @if (Model.EducationalDetailDtos != null)
+                                                            {
+                                                                @for (int i = 0; i < Model.EducationalDetailDtos.Count(); i++)
+                                                                {
+
+                                                                    <tr id="@Model.EducationalDetailDtos[i].ExamName">
+
+                                                                        <input type="hidden" asp-for="@Model.EducationalDetailDtos[i].Id">
+                                                                        <td>
+                                                                            <span>@Model.EducationalDetailDtos[i].ExamName</span>
+                                                                            <input type="hidden" asp-for="@Model.EducationalDetailDtos[i].ExamName">
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text" asp-for="@Model.EducationalDetailDtos[i].BoardName" value="@Model.EducationalDetailDtos[i].BoardName" />
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text" asp-for="@Model.EducationalDetailDtos[i].YearOfPassing" value="@Model.EducationalDetailDtos[i].YearOfPassing" />
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text" asp-for="@Model.EducationalDetailDtos[i].ObtainedMarks" value="@Model.EducationalDetailDtos[i].ObtainedMarks" />
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text" asp-for="@Model.EducationalDetailDtos[i].ObtainedMarks" value="@Model.EducationalDetailDtos[i].TotalMarks" />
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text" asp-for="@Model.EducationalDetailDtos[i].Percentage" value="@Model.EducationalDetailDtos[i].Percentage" />
+                                                                        </td>
+
+                                                                    </tr>
+                                                                }
+                                                            }
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table cellspacing="6" cellpadding="4" width="100%">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table cellspacing="0" width="100%" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td align="center">
+                                                <span id="load"></span>
+                                                <button type="button" id="btnSubmit" class="btn btn-success" onclick="" style="width:200px">Submit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+
+    </div>
+</div>

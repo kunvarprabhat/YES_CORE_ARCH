@@ -1,0 +1,118 @@
+﻿@using YES.Dtos.TopMessage;
+@model List<TopMessageDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .css-serial {
+        counter-reset: serial-number; /* Set the serial number counter to 0 */
+    }
+
+        .css-serial td:first-child:before {
+            counter-increment: serial-number; /* Increment the serial number counter */
+            content: counter(serial-number); /* Display the counter */
+        }
+</style>
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="breadcrumb box-title">Add Course</h3>
+                    <ol class="breadcrumb pull-right">
+                        <li><a href="~/Dashboard/Index"><i class="fa fa-dashboard"></i>&nbsp;Dashboard</a></li>
+                        <li class="active">New Course</li>
+                    </ol>
+                </div>
+                <hr />
+                <div class="box-body">
+                    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-header float-right" style="margin:5px;float:left">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default" style="font-size: 15px;"><i class="fa fa-plus-circle"></i>&nbsp;Add Offer/Messsage</button>
+                                </div>
+                                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="tblCourseList" class="table table-bordered table-striped dataTable table-responsive" role="grid" aria-describedby="example1_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th>Sr.No</th>
+                                                        <th>Offer/Message</th>
+                                                        <th>Created On</th>
+                                                        <th>Status</th>
+                                                        <th>Tools</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>@item.OfferText</td>
+                                                            <td>@item.CreatedDate</td>
+                                                            <td>@(item.IsActive == true ? "Active" : "InActive")</td>
+                                                            <td></td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Add Course</h4>
+            </div>
+            <div class="modal-body">
+                <form id="topMessageForm">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <label>Offer text/Message</label>
+                                <input type="text" name="OfferText" placeholder="Please enter offer text/Message" class="form-control" id="txtOfferText" />
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-check">
+                                <input class="form-check-input" name="IsActive" type="checkbox" checked="checked" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Active/InActive
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <span id="load">
+                    <button type="button" class="btn btn-success" id="btnSubmit">Save changes</button>
+                </span>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+@section Scripts{
+    <script type="text/javascript" src="~/Feature/TopMessage/TopMessage.js"></script>
+}

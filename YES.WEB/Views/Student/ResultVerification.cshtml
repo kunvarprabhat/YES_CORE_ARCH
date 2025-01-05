@@ -1,0 +1,70 @@
+﻿@using YES.Dtos.Student; 
+@model StudentDto;
+@{
+    ViewData["Title"] = "ResultVerification";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <div id="banner-area" class="banner-area" style="background-image: url(images/banner/banner1.jpg)">
+        <div class="banner-text">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="banner-heading">
+                            <h1 class="border-title border-left">Result Verification</h1>
+                            <ol class="breadcrumb">
+                                <li> <a href="/">Home</a> </li>
+                                <li>Result Verification</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <!-- Col end -->
+                </div>
+                <!-- Row end -->
+            </div>
+            <!-- Container end -->
+        </div>
+        <!-- Banner text end -->
+    </div>
+    <!-- Banner area end -->
+    <section id="Section2" class="main-container">
+        <div class="container">
+            @if (Model.ExamResultDtos == null)
+            {
+                <div class="row">
+                    <div class="col-lg-4" style="font-size: 23px; padding-top: 10px; font-weight: bold; text-transform: uppercase;">
+                        <label>Enter Student Application No. :</label>
+                    </div>
+                    <div class="col-lg-3 col-xs-9">
+                        <input type="text" id="studentId" class="form-control" style="text-transform: uppercase;" placeholder="Enter Students Application No" />
+                    </div>
+                    <div class="col-lg-5 col-xs-3">
+                        <button type="button" class="btn btn-success" id="btnSearch" onclick="marksheetVerify()">SUBMIT</button>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-info" onclick="printContent('printarea');" id="button" runat="server" visible="false">
+                                <span class="fa fa-print">&nbsp; PRINT</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <hr />
+
+                    </div>
+                </div>
+            }
+            <div class="row" id="Result">
+                @if (Model != null && Model.ExamResultDtos != null)
+                {
+                    @await Html.PartialAsync("~/Views/Marksheet/_MarksheetPartialView.cshtml",Model)
+                }
+
+            </div>
+
+        </div>
+    </section>
+
+</div>
+@section Scripts{
+    <script type="text/javascript" src="~/Feature/GenrateResult/Marksheet.js"></script>
+}

@@ -1,0 +1,45 @@
+﻿@using YES.Dtos.Gallery;
+@model GalleryDto
+
+<form id="gallerImageForm" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ImageType" />
+    <div class="col-lg-7">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.Title)
+                    <input asp-for="Title" maxlength="50" placeholder="Please enter image title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- /.col -->
+            <div class="col-lg-8">
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.Description)
+                    <textarea asp-for="Description" maxlength="120" placeholder="Please enter image description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="form-group">
+            <input type="hidden" asp-for="ImageURL" />
+            <label>Upload Image</label>
+            <input type="file" class="form-control" asp-for="FileToUpload" onchange="readURL(this,'galleryScr');" accept=".png, .jpg, .jpeg" />
+            <span asp-validation-for="FileToUpload" class="text-danger"></span>
+        </div>
+        <div id="user-profile-view" style="height: 100px; width: 110px; border: 1px solid;" class="img-thumbnail mr-2">
+            <img src="@Model.ImageURL?.Replace("wwwroot","")" id="galleryScr" height="100%" width="100%" /><br />
+        </div>
+
+    </div>
+    <!-- /.col -->
+    <div class="form-group">
+        <div class="pull-right" style="margin:5px;float:left">
+            <button class="btn btn-success" id="btnSubmit">Submit</button>
+        </div>
+    </div>
+</form>

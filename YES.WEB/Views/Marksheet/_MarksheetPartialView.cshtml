@@ -1,0 +1,241 @@
+﻿@using YES.Dtos.Student;
+@using YES.Utility.Common;
+@model StudentDto;
+@{
+    decimal percentage = Model.ExamResultDtos != null ? Math.Round(Model.ExamResultDtos.Select(x => x.ObtainMark).Average(),2) : 00;
+    string marksheetVerificationUrl = "/result-verification?StudentId=" + Model?.StudentId;
+}
+
+<div class="col-lg-12" style="border: 2px dotted; width: 1000px; margin-left: 20px" id="printarea">
+    <div class="row">
+        <div class="col-lg-12" style="border: 2px dotted;">
+            <table style="width: 100%; margin: 15px">
+                <tbody>
+                    <tr>
+                        <td>
+                            <b>Branch</b>: @(Model?.BranchType == 0 ? "Head Office" : Model?.BranchDto?.CenterName)
+                        </td>
+                        <td colspan="1"></td>
+                        <td>
+                            <b>Application ID</b>: @Model?.StudentId
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="Images/LOGO-EBSB.png" style="text-align: center">
+                        </td>
+                        <td style="text-align: center">
+
+                            <img src="Images/yescc.png"><br>
+
+                            <b>YES COMPUTER CENTER</b> An ISO Certified (9001:2015) Institute
+                            <br>
+                            Registered Ladiyari Road,Koraon,Prayagraj-212306,Utter Pradesh,INDIA<br>
+
+                            Certificate Registration Number ICM/UP09/1244Q
+                        </td>
+                        <td style="text-align: center">
+                            <img src="~/Images/icon-image/iso.png" height="110px" width="125px">
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <table style="width: 100%;" cellspacing="0" cellpadding="3">
+                <tbody>
+                    <tr>
+                        <td align="center" colspan="3">
+                            <div class="col-lg-12" style="text-align: center; font-size: 28px; color: red; font-family: " agency="" fb''="">
+                                <u><b><i>Marks Statement</i></b></u><br>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <label>Condidate Resitration Number:</label>
+                            </p>
+                            <p>
+                                <label>The Marksheet is Awarded to :</label>
+                            </p>
+                            <p>
+                                <label>On Successfull Completion of the Course:</label>
+                            </p>
+                            <p>
+                                <label>Form Our Authorised Study Center :</label>
+                            </p>
+
+                        </td>
+                        <td>
+                            <p>
+                                <label>@Model?.RegistrationDto?.RegistrationNo</label>
+                            </p>
+                            <p>@Model?.RegistrationDto?.Name</p>
+                            <p>@Model?.Course?.CourseShortName</p>
+                            <p>Yes Computer Center</p>
+                        </td>
+                        <td>
+                            <img src="@Model?.ProfilePath" class="img-thumbnail" height="130px" width="130px">
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <br>
+            <table style="width: 100%; max-width: 100%; margin-bottom: 20px;">
+                <thead>
+                    <tr style="padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">
+                        <td colspan="2" align="center" style="padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd; background-color: #f1f1f1;"><b>MODULES COVERS</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model?.ExamResultDtos!)
+                    {
+                        <tr style="padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">
+                            <td style="padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;"><b>@item.ExamDto?.Modules :</b> </td>
+                            <td>@item.ExamDto?.ExamName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <table style="width: 100%; max-width: 100%; margin-bottom: 20px;">
+                <thead>
+                    <tr style="padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">
+                        <td align="center" style="padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd; background-color: #18B5F0" colspan="4"><b>PERFORMANCE AS PREXAMINATION</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">
+                        <th style="padding: 8px; text-align: center; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">Sr No.</th>
+                        <th style="padding: 8px; text-align: center; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">Assesment/Course/Modules</th>
+                        <th style="padding: 8px; text-align: center; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">TOTAL MARKS</th>
+                        <th style="padding: 8px; text-align: center; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">OBTAINED MARKS</th>
+
+                    </tr>
+                    @{
+                        int count = 0;
+                        foreach (var item in Model?.ExamResultDtos!)
+                        {
+                            count++;
+                            <tr style="padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">
+                                <td style="padding: 8px; text-align: center; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">@count</td>
+                                <td style="padding: 8px; text-align: center; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">@(item.ExamDto?.ExamName)</td>
+                                <td style="padding: 8px; text-align: center; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">@item.TotalMarks</td>
+                                <td style="padding: 8px; text-align: center; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">@item.ObtainMark</td>
+                            </tr>
+                        }
+                    }
+
+                    <tr style="padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd;">
+                        <td align="center" colspan="4" style="padding: 0px;">
+                            <table style="width: 100%">
+                                <tbody>
+                                    <tr style="background-color: #0d1f8a; color: #ffffff; text-align: center; padding: 10px; margin-bottom: 40px">
+                                        <td style="padding: 10px">Percentage : <label id="txtPercentage">@percentage</label> %</td>
+                                        <td>Grade : <label id="txtGrade">@(Convert.ToDecimal(percentage).Grad())</label></td>
+                                        <td>Performance : <label id="txtPerformance">@(Convert.ToDecimal(percentage).Performance())</label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <table style="width: 100%">
+                <tbody>
+                    <tr style="padding-top: 8px;">
+                        <td><b>Date Of issue </b>:</td>
+                        <td>@Model.ResultCertificateDto?.MarksheetIssueDate</td>
+                        <td colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 8px;">
+                            <b>Place Of Issue</b> :
+                        </td>
+                        <td style="padding-top: 8px;">HEAD OFFICE KORAON PRAYAGRAJ</td>
+                        <td colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding-top: 18px;"></td>
+                        <td style="padding-top: 18px;">
+                            <span style="float: left; text-align: center">
+                                <img src="@Model?.BranchDto?.Signature" style="height:39px;width:96px;"><br>_ ___________________<br>
+                                Examination Controller
+                            </span>
+
+                            <span style="float: right; text-align: center">
+                                <img src="~/images/sonusig-1.png"><br>______________________<br>
+                                Authorised Signatory
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr style="border: 2px solid; color: #0d1f8a">
+            <table style="width: 100%">
+                <tbody>
+                    <tr>
+                        <td colspan="3">
+                            <span style="margin-left: 25px">Thanks For Associating with <b>Yes Computer Center</b>, and best wishes for your bright future.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @* <img src="@(marksheetVerificationUrl.GenerateQRCode())" height="200px" width="200px">  ; *@
+                        </td>
+                        <td>
+                            <table style="width: 100%">
+                                <tbody>
+                                    <tr>
+                                        <td><b>EXPLANATION OF EXAMINATION GRADE</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>85 % and Above</b> : <span style="margin-left: 83px;">Grade - A+ (Excellent) </span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Above 70 % and below 85 %</b> : Grade - A (Very Good)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Above 55 % and below 70 %</b> : Grade - B (Good)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Above 30 % and below 55 %</b>: &nbsp;Grade - C (Satisfactory)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Below 30 %</b>: <span style="margin-left: 120px;">Try Again</span> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="text-align: center">
+                            <b>Registered Office</b><br>
+                            <b>Yes Computer Center</b><br>
+                            (AN ISO 9001 : 2015 CERTIFIED INSTITUTE)<br>
+                            Ladiyari Road Jaisawal Petrol Pump<br>
+                            Koraon Prayagraj, Pin - 212306<br>
+                            <b>Call US </b>: +91 9936573728<br>
+                            <b>Email</b> : Info@yescc.in<br>
+                            <b>Web</b> :www.yescc.in
+
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="width: 100%; margin-bottom: 5px">
+                <tbody>
+                    <tr>
+                        <td style="background-color: #0d1f8a; color: white; padding: 10px">Note: Procedure of Online Verification Through <span style="color: yellow">www.yescc.in</span><span style="color: white; background-color: red; margin-left: 15px; padding: 3px;">STUDENTD CENTER</span>==&gt;<span style="background-color: red; color: white; padding: 3px">RESULT VERIFICATION</span> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>

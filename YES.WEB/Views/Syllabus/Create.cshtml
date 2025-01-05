@@ -1,0 +1,68 @@
+﻿@using YES.Dtos.Syllabus;
+@model SyllabusDto
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="breadcrumb box-title">Create Syllabus</h3>
+                    <ol class="breadcrumb pull-right">
+                        <li><a href="~/Dashboard/Index"><i class="fa fa-dashboard"></i>&nbsp;Dashboard</a></li>
+                        <li><a href="~/Syllabus/Index"><i class="fa fa-List"></i>&nbsp;Syllabus List</a></li>
+                        <li class="active">Create Syllabus</li>
+                    </ol>
+                </div>
+                <hr />
+
+                <div class="box-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="syllabusForm" enctype="multipart/form-data">
+                                <div class="row">
+                                    <input type="hidden" asp-for="Id" />
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(x=>x.CourseId)
+                                            @Html.DropDownListFor(x=>x.CourseId,new SelectList(Model.Courses, "CourseId", "CourseShortName"),"Select Course",new{@class="form-control"})
+                                            <span asp-validation-for="CourseId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(x=>x.Heading)
+                                            <input asp-for="Heading" maxlength="60" placeholder="Please enter Heading Id" class="form-control" />
+                                            <span asp-validation-for="Heading" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(x=>x.Description)
+                                            <input asp-for="Description" placeholder="Please enter Description Id" class="form-control" />
+                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-success" id="btnSubmit">Submit</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+    <script type="text/javascript" src="~/Feature/Syllabus/Create-Syllabus.js"></script>
+    <script src="~/Feature/Comman/SubmitData.js"></script>
+}

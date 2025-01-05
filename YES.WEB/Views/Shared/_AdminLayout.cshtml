@@ -1,0 +1,233 @@
+﻿@using YES.Comman.Interfaces;
+@using YES.Utility.Enum;
+@using YES.Utility.Enums;
+<!DOCTYPE html>
+@{
+    @inject ICurrentUserService _currentUser;
+
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
+    <!-- Responsive styles-->
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="~/app-assets/bower_components/dist/css/bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/app-assets/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="~/app-assets/dist/css/skins/_all-skins.min.css">
+    <!-- Date Picker -->
+    <link href="~/app-assets/bower_components/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/app-assets/bower_components/datatables.net/css/datatables.bootstrap.min.css" rel="stylesheet" />
+    <!--Toastr -->
+    <link href="~/toastr/toastr.min.css" rel="stylesheet" />
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+
+        <header class="main-header">
+            <a href="~/Dashboard/index" class="logo">
+                <span class="logo-mini"><b>Ad</b>min</span>
+                <span class="logo-lg"><b>@_currentUser.RoleName</b>&nbsp;Panel</span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="../dist/img/avatar5.png" class="user-image" alt="User Image">
+                                <span class="hidden-xs">@_currentUser.Name</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="../dist/img/avatar5.png" class="img-circle" alt="User Image">
+                                    <p>
+                                        @_currentUser.CenterName
+                                        <small>ADCA, DFA, FCCP(USA), FICM, CCEBDM, FRT, FCGP</small>
+                                    </p>
+                                </li>
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="~/Account/ChangePassword" class="btn btn-default btn-flat">Chang Password</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="~/Account/Logout" class="btn btn-default btn-flat">Log out</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <div class="user-panel">
+                    <div class="image">
+                        <img src="~/Images/logo.png" class="img-responsive" alt="User Image" />
+                    </div>
+
+                </div>
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-user"></i><span>Student Managemant</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="~/Registration/Registration"><i class="fa fa-circle-o"></i>Registration Form</a></li>
+                            <li><a href="~/Registration/Index"><i class="fa fa-circle-o"></i>Registration List</a></li>
+                            <li><a href="~/Student/Application"><i class="fa fa-circle-o"></i>Application Form</a></li>
+                            <li><a href="~/Student/Index"><i class="fa fa-circle-o"></i>List Of Students</a></li>
+                        </ul>
+                    </li>
+                    @if (_currentUser.RoleName != null && _currentUser.RoleName.Equals(Roles.SuperAdmin.ToString()))
+                    {
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-book"></i><span>Course Management</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-right pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="~/Course/Index"><i class="fa fa-circle-o"></i>Add Course</a></li>
+                                <li><a href="~/Syllabus/Index"><i class="fa fa-circle-o"></i>Add Course Syllabus </a></li>
+                                <li><a href="~/Batches/Index"><i class="fa fa-tasks"></i>Add upcoming Batch </a></li>
+                                <li><a href="~/Exam/Index"><i class="fa fa-circle-o"></i>Add Exam Details </a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if (_currentUser.RoleName != null && _currentUser.RoleName.Equals(Roles.SuperAdmin.ToString()))
+                    {
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-branch"></i><span>Branch Management</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-right pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                <li><a href="~/Branch/Index"><i class="fa fa-code-branch"></i>Branches</a></li>
+                            </ul>
+
+                        </li>
+                    }
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-picture-o"></i><span>Image Management</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            @if (_currentUser.RoleName != null && _currentUser.RoleName.Equals(Roles.SuperAdmin.ToString()))
+                            {
+                                <li><a href="~/GalleryImages?galleryType=@GalleryType.Slider.ToString()"><i class="fa fa-circle-o"></i>Add Slider</a></li>
+                            }
+                           
+                            <li><a href="~/GalleryImages?galleryType=@GalleryType.PhotoGallery.ToString()"><i class="fa fa-circle-o"></i>Photo Gallery</a></li>
+                            <li><a href="~/GalleryImages?galleryType=@GalleryType.NewMedia.ToString()"><i class="fa fa-circle-o"></i>News And Media</a></li>
+                            <li><a href="~/GalleryImages?galleryType=@GalleryType.Award.ToString()"><i class="fa fa-circle-o"></i>Award And Achiement</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="~/News/Index"> <i class="fa fa-eye"></i><span>Add News And Updates</span> </a>
+                    </li>
+                    <li>
+                        <a href="~/Dashboard/CourseEnquiry"><i class="fa fa-edit"></i><span>Course Enquiry</span>  </a>
+                    </li>
+                    <li>
+                        <a href="~/Dashboard/Enquiry"><i class="fa fa-phone"></i><span>Contact Enquiry</span></a>
+                    </li>
+                    <li>
+                        <a href="Visitor"> <i class="fa fa-map"></i><span>Visitor Enquiry</span></a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-book"></i><span>Vew Students Report</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-calendar"></i>Date Wise</a></li>
+                            <li><a href="#"><i class="fa fa-medkit"></i>Courses Wise</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Powered by :</b> Parvez Ansari Developer
+            </div>
+            <strong>Copyright &copy; 2020-@DateTime.Now.Year  <a href="yescc.in">Yes Computer Center</a>.</strong> All rights reserved.
+        </footer>
+
+        <div class="control-sidebar-bg"></div>
+    </div>
+    <script src="~/js/jquery.js"></script>
+    <!-- Bootstrap jQuery -->
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script src="~/app-assets/dist/js/adminlte.min.js"></script>
+
+    <script src="~/app-assets/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/app-assets/bower_components/datatables.net/js/jquery.datatables.min.js"></script>
+    <script src="~/app-assets/bower_components/datatables.net/js/datatables.bootstrap.min.js"></script>
+    <script src="~/toastr/toastr.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/feature/comman/comman.js"></script>
+    <script src="~/feature/comman/submitdata.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+            $(".datepiker").datepicker({
+                dateFormat: "DD, dd MM yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '2020:2030'
+            });
+            $("[class*=Datepikar]").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+            });
+        })
+    </script>
+</body>
+</html>
